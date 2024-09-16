@@ -1,9 +1,9 @@
 
-# eLearning Platform
+# e-learning Platform
 
 ## Project description
 
-This project is an eLearning platform developed using Spring Boot, Angular, PostgreSQL, AWS S3, and Stripe. The platform provides a comprehensive online learning experience with various functionalities, including course creation, payment processing, and user authentication.
+This project is an e-learning platform developed using Spring Boot, Angular, PostgreSQL, AWS S3, and Stripe. The platform provides a comprehensive online learning experience with various functionalities, including course creation, payment processing, and user authentication.
 
 ## Technologies Used
 
