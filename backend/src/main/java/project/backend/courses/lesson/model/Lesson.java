@@ -49,8 +49,6 @@ public class Lesson {
     @ManyToOne
     private Course course;
 
-
-
     public Lesson(String title, String description, String content, int lessonNumber, String videoUrl) {
         this.title = title;
         this.description = description;

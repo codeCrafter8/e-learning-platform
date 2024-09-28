@@ -19,6 +19,7 @@ public class CommentCommandLineRunner implements CommandLineRunner {
     private final CommentRepository commentRepository;
     private final CourseService courseService;
     private final UserService userService;
+
     @Override
     public void run(String... args) throws Exception {
         Course course = courseService.getCourseById(1L);

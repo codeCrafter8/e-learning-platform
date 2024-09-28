@@ -52,7 +52,6 @@ public class AuthenticationService {
                 .build());
     }
 
-    // podmienić nazwe na register po refaktoryzacji
     public AuthenticationResponse registerRefactor(RegisterRequest request) {
         if (repository.findByEmail(request.getEmail()).isPresent()) {
             throw new ConflictException("Email already in use");

@@ -35,11 +35,6 @@ class NotificationControllerImplIT {
     @Autowired
     private MockMvc mockMvc;
 
-//    @Autowired
-//    public NotificationControllerImplTest(MockMvc mockMvc) {
-//        this.mockMvc = mockMvc;
-//    }
-
     private String token;
 
     @Autowired

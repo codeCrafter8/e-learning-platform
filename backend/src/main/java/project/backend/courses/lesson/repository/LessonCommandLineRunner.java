@@ -14,7 +14,7 @@ import java.util.List;
 public class LessonCommandLineRunner implements CommandLineRunner {
 
     private final LessonRepository lessonRepository;
-    //    private/courses/0/test.mp4
+
     private static final List<List<Lesson>> lessonsGroups = List.of(
 
             // 0

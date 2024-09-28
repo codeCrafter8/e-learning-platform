@@ -60,9 +60,7 @@ public class LessonServiceImpl implements LessonService {
         if (lesson.videoUrl() != null)
             lessonToUpdate.setVideoUrl(lesson.videoUrl());
 
-        System.out.println(lessonToUpdate.getCourse().getCourseState() == CourseState.PUBLISHED);
         if(lessonToUpdate.getCourse().getCourseState() == CourseState.PUBLISHED){
-            System.out.println("Course is updating");
             notificationService.assignNotifications("Course [%s], has been updated. Check it out!".formatted(lessonToUpdate.getCourse().getTitle()), lessonToUpdate.getCourse().getId());
         }
 
@@ -96,7 +94,6 @@ public class LessonServiceImpl implements LessonService {
         Course course = lesson.getCourse();
 
         String fileName = "private/courses/" + course.getId() + "/lessons/" + UUID.randomUUID().toString();
-        System.out.println(fileName);
 
         lesson.setVideoUrl(fileName);
         lessonRepository.save(lesson);

@@ -77,8 +77,6 @@ export class AuthService {
     this.cartService.handleLoggedInUser();
   }
 
-  
-
   public handleAuthCallback(): void {
     const urlParams = new URLSearchParams(window.location.search);
     const jwtAccessToken = urlParams.get('jwtAccessToken');
@@ -88,16 +86,9 @@ export class AuthService {
     if(jwtAccessToken === undefined || jwtAccessToken === null)
       return;
 
-    console.log(urlParams);
-    console.log(user);
     const objUser: User = JSON.parse(user as string);
-    console.log(objUser);
 
     this.storeUserCredentials({user: objUser, accessToken: jwtAccessToken, refreshToken: refreshToken})
-
-    // if (authCode) {
-    //   this.exchangeAuthCode(authCode);
-    // }
   }
 
   logout(): Observable<any> {

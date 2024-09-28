@@ -113,18 +113,14 @@ public class AuthenticationController {
                             user.getId(), user.getEmail(), user.getFirstName(), user.getLastName());
                     String redirectUrl = "http://localhost:4200/login?jwtAccessToken=" + jwtAccessToken + "&refreshToken="+ refreshToken +"&user=" +strigifiedUser;
 
-                    System.out.println(redirectUrl);
                     response.sendRedirect(redirectUrl);
-                } else {
-//                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Google ID token");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 
@@ -151,7 +147,6 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
-        System.out.println("LOGOUT");
         SecurityContextHolder.clearContext();
         return ResponseEntity.ok().build();
     }

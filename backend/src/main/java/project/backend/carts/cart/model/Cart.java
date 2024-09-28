@@ -11,7 +11,6 @@ import project.backend.user.User;
 import java.math.BigDecimal;
 import java.util.List;
 
-//TODO: add valid annotations?
 @Getter
 @Setter
 @Builder

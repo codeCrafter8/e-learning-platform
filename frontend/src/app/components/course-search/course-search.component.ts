@@ -16,7 +16,7 @@ export class CourseSearchComponent implements OnInit {
   languages = ['Polish', 'English', 'Spanish'];
 
   length: number = 0;
-  pageSize: number = 4; 
+  pageSize: number = 4;
   currentPage: number = 0;
   categories: Category[] = [];
   keyword: string = '';
@@ -47,7 +47,7 @@ export class CourseSearchComponent implements OnInit {
       categories: selectedCategories != null ? selectedCategories: '',
       keyword : selectedKeyword != null ? selectedKeyword : ''
     }
-    // TODO move it to the redux, because it doesnt refresh in the course search component
+
     // get all courses to display it in the course list
     this.courseService.getCoursesByFilter(params).subscribe((courseFilter) => {
       this.length = courseFilter.count;
@@ -57,7 +57,7 @@ export class CourseSearchComponent implements OnInit {
 
   handlePageEvent(event: PageEvent) {
     this.currentPage = event.pageIndex;
-    this.pageSize = event.pageSize;     
+    this.pageSize = event.pageSize;
     let params = {
       keyword: this.keyword,
       categories: this.selectedCategories,
@@ -87,8 +87,6 @@ export class CourseSearchComponent implements OnInit {
     this.courseService.getCoursesByFilter(params).subscribe((courseFilter) => {
       this.courses = courseFilter.courses;
       this.length = courseFilter.count;
-      console.log(this.length);
-      console.log(this.courses);
     });
   }
   onSearchEvent(keyword: string): void {
@@ -104,23 +102,7 @@ export class CourseSearchComponent implements OnInit {
     this.courseService.getCoursesByFilter(params).subscribe((courseFilter) => {
       this.courses = courseFilter.courses;
       this.length = courseFilter.count;
-      console.log(this.length);
-      console.log(this.courses);
     });
   }
-
-  // onMinPriceChange(event: any) {
-  //   this.minPrice = event.value;
-  //   if (this.minPrice > this.maxPrice) {
-  //     this.maxPrice = this.minPrice;
-  //   }
-  // }
-
-  // onMaxPriceChange(event: any) {
-  //   this.maxPrice = event.value;
-  //   if (this.maxPrice < this.minPrice) {
-  //     this.minPrice = this.maxPrice;
-  //   }
-  // }
 
 }

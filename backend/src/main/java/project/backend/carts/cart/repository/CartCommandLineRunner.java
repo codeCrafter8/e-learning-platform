@@ -31,9 +31,7 @@ public class CartCommandLineRunner implements CommandLineRunner {
         Optional<Course> course;
         course = courseRepository.findById(1L);
         Course coursePending = courseRepository.findById(8L).get();
-        if(course.isPresent()){
-            System.out.println("Course found");
-
+        if (course.isPresent()) {
             Cart cart = Cart.builder()
                     .cartStatus(CartStatus.COMPLETED)
                     .user(userRepository.findAll().get(0))
@@ -64,18 +62,9 @@ public class CartCommandLineRunner implements CommandLineRunner {
                     .build();
             cartItemRepository.save(cartItem2);
 
-
             tmp2.setItems(List.of(cartItem2));
             cartRepository.save(tmp2);
 
         }
-        else {
-            System.out.println("Course not found");
-        }
-        System.out.println(course);
-
-
-
-
     }
 }
