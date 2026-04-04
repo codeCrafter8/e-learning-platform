@@ -14,11 +14,9 @@ export class LessonDisplayComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('lesson ngOnInit');
   }
 
   reRenderComponent() {
-    console.log('re-rendering component');
     this.cdr.detectChanges();
   }
 }

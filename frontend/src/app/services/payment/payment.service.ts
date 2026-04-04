@@ -17,12 +17,10 @@ export class PaymentService {
     try {
       const stripeKey: string | undefined = await this.http.get(`${environment.apiUrl}/api/v1/payments/stripe-key`, { responseType: 'text' }).toPromise();
       if (!stripeKey) {
-        console.error('Stripe key is undefined');
         return null;
       }
       return await loadStripe(stripeKey);
     } catch (error) {
-      console.error('Error loading Stripe:', error);
       return null;
     }
   }
@@ -31,7 +29,6 @@ export class PaymentService {
     const stripe = await this.stripePromise;
 
     if (!stripe) {
-      console.error('Stripe is not loaded yet');
       return;
     }
 
@@ -41,8 +38,8 @@ export class PaymentService {
         sessionId: data.id,
       });
     } catch (error) {
-      console.error('Error occurred while making payment:', error);
+      // Handle error silently or rethrow if needed
     }
   }
-  
+
 }

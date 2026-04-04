@@ -12,18 +12,12 @@ export class RatingComponent implements OnInit {
   @Input() enrollmentCount ?: number;
   @Input() type: string = Type.DEFAULT;
 
-  constructor() {  }
-
-  ngOnInit(): void {
-  }
-
-  getFilledStars(): any[] {
+  getFilledStars(): number[] {
     return Array(Math.floor(this.rating));
   }
 
-  getEmptyStars(): any[] {
+  getEmptyStars(): number[] {
     return Array(5 - Math.floor(this.rating));
   }
-
 
 }

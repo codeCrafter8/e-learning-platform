@@ -38,23 +38,14 @@ export class UserProfileComponent implements OnInit {
     this.notificationService.getUsersNotificationsByStatus("UNREAD").subscribe((response)=>{
       this.notificationList = response;
       this.notificationList.forEach((notification) => {
-        this.notificationService.updateNotificationStatus(notification.id, "READ").subscribe((response) => {
-          console.log(response);
-        });
+        this.notificationService.updateNotificationStatus(notification.id, "READ").subscribe();
       });
     });
   }
 
 
   logout(): void {
-    this.authService.logout().subscribe(
-      (response) => {
-        console.log('Logged out');
-      },
-      (error) => {
-        console.error('Logout failed', error);
-      }
-    );
+    this.authService.logout().subscribe();
   }
 
   createCourse(){

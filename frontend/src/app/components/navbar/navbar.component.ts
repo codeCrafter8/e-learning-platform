@@ -30,8 +30,6 @@ export class NavbarComponent implements OnInit {
       }
     });
     this.notificationService.getUsersNotificationsByStatus('UNREAD').subscribe((response)=>{
-      console.log("Notifications")
-      console.log(response);
       this.notificationList = response;
     });
   }

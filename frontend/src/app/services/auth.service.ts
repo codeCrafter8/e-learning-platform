@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CartService } from './cart/cart.service';
+import { environment } from 'src/environments/environment';
 
 interface User {
   email: string;
@@ -36,7 +37,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.http
-      .post<any>(`http://localhost:8080/api/v1/auth/login`, { email, password })
+      .post<any>(`${environment.apiUrl}/api/v1/auth/login`, { email, password })
       .pipe(
         map((response) => {
           this.storeUserCredentials(response);
@@ -52,7 +53,7 @@ export class AuthService {
     lastName: string
   ): Observable<any> {
     return this.http
-      .post<any>(`http://localhost:8080/api/v1/auth/register`, {
+      .post<any>(`${environment.apiUrl}/api/v1/auth/register`, {
         email,
         password,
         firstName,
@@ -93,7 +94,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this.http
-      .post<any>(`http://localhost:8080/api/v1/auth/logout`, {})
+      .post<any>(`${environment.apiUrl}/api/v1/auth/logout`, {})
       .pipe(
         map((response) => {
           this.clearUserCredentials();
@@ -120,20 +121,17 @@ export class AuthService {
 
   public refreshToken(): Observable<any> {
     const refreshToken = this.getRefreshToken();
-    console.log('Attempting to refresh token:', refreshToken);
 
     return this.http
-      .post<any>(`http://localhost:8080/api/v1/auth/refresh-token`, {
+      .post<any>(`${environment.apiUrl}/api/v1/auth/refresh-token`, {
         refreshToken,
       })
       .pipe(
         map((response) => {
-          console.log('Token refreshed:', response.accessToken);
           localStorage.setItem('accessToken', response.accessToken);
           return response;
         }),
         catchError((error) => {
-          console.error('Refresh token failed:', error);
           return throwError(error);
         })
       );
@@ -142,12 +140,11 @@ export class AuthService {
   getGoogleClientId(): Observable<string> {
     return this.http
       .get<{ googleClientId: string }>(
-        `http://localhost:8080/api/v1/auth/google-client-id`
+        `${environment.apiUrl}/api/v1/auth/google-client-id`
       )
       .pipe(
         map((response) => response.googleClientId),
         catchError((error) => {
-          console.error('Failed to fetch Google Client ID', error);
           return throwError(error);
         })
       );

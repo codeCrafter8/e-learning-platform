@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {Type} from './button.types';
 
 
@@ -9,33 +9,25 @@ import {Type} from './button.types';
   styleUrls: ['./button.component.css']
 })
 
-export class ButtonComponent implements OnInit {
+export class ButtonComponent {
 
   @Input() text : string = '';
   @Input() type : string = Type.DEFAULT;
-  @Output() buttonClick = new EventEmitter<void>(); // Add this line
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Output() buttonClick = new EventEmitter<void>();
 
   getButtonClass(): string {
-    let classType:string= 'default-button'; // refers to the css class button
-
-    if (this.type === Type.BUY) {
-      classType='buy-button'
+    switch (this.type) {
+      case Type.BUY:
+        return 'buy-button';
+      case Type.LOG_IN:
+        return 'log-in-button';
+      case Type.SIGN_UP:
+        return 'sign-up-button';
+      case Type.SUBMIT:
+        return 'submit-button';
+      default:
+        return 'default-button';
     }
-    else if (this.type === Type.LOG_IN) {
-      classType='log-in-button'
-    }
-    else if (this.type === Type.SIGN_UP) {
-      classType='sign-up-button'
-    }
-    else if (this.type === Type.SUBMIT) {
-      classType='submit-button'
-    }
-    return classType;
   }
 
   onClick(): void { // Add this method

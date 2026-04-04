@@ -17,11 +17,7 @@ export class SuccessComponent implements OnInit {
       this.cartId = params['cartId'];
     });
 
-    this.cartService.updateCartStatus(this.cartId, 'COMPLETED').subscribe(
-      (error) => {
-        console.log("Error:", error);
-      }
-    );
+    this.cartService.updateCartStatus(this.cartId, 'COMPLETED').subscribe();
   }
-  
+
 }

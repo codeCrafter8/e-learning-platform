@@ -4,12 +4,13 @@ import { Observable, forkJoin, of, catchError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CartItem } from '../../interfaces/cartItem.interface';
 import { Course } from 'src/app/interfaces/course.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'http://localhost:8080/api/v1';
+  private readonly apiUrl = `${environment.apiUrl}/api/v1`;
 
   constructor(private http: HttpClient) {
   }
@@ -21,7 +22,7 @@ export class CartService {
     } else {
       cartItemRequest = { courseId: courseId };
     }
-    
+
     return this.http.post<any>(`${this.apiUrl}/cartItems`, cartItemRequest);
   }
 
@@ -64,7 +65,6 @@ export class CartService {
   isCourseInCart(courseId: number): Observable<boolean> {
     return this.getCart().pipe(
       map(cart => {
-        console.log(cart)
         if (cart && cart.items) {
           return cart.items.some((item: CartItem) => item.course.id === courseId);
         }
@@ -77,27 +77,22 @@ export class CartService {
     const cartId = Number(localStorage.getItem('cartId'));
     if (cartId) {
       this.getCartByCartID(cartId).subscribe((cart) => {
-        this.addItemsToLoggedInUserCart(cart.items).subscribe(
-          (error) => {
-            console.log("Error:", error);
-          }
-        );
+        this.addItemsToLoggedInUserCart(cart.items).subscribe();
       });
     }
   }
 
   private addItemsToLoggedInUserCart(items: any[]): Observable<any> {
     localStorage.removeItem('cartId');
-  
+
     return this.getCart().pipe(
       switchMap((cart) => {
         if (!cart || Object.keys(cart).length === 0) {
           return forkJoin(items.map((item: any) => this.addCartItem(item.course.id)));
         } else {
-          console.log('Items in cart');
           const existingCourseIds = cart.items ? cart.items.map((item: any) => item.course.id) : [];
           const newItems = items.filter((item: any) => !existingCourseIds.includes(item.course.id));
-  
+
           if (newItems.length > 0) {
             return forkJoin(newItems.map((item: any) => this.addCartItem(item.course.id)));
           } else {
@@ -115,5 +110,5 @@ export class CartService {
   hasBoughtCourse(courseId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/carts/courses/${courseId}/me`)
   }
-  
+
 }
